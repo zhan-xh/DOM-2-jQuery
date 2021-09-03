@@ -1,5 +1,12 @@
 # 利用jQuery 封装DOM
 ## 闭包&链式操作
+解决git push时出现 fatal: unable to access 'https://github.com/zhan-xh/DOM-2-jQuery.git/': Failed to connect to github.com port 443: Timed out
+问题
+```
+git config --global --unset http.proxy
+git config --global --unset https.proxy
+
+```
 1. window.jQuery() 是我们提供的全局函数
 jQuery()接受一个选择器,用来获取对应的元素,但他却不返回这些元素,相反,它返回一个对象,称为jQuery构造出来的对象,这个对象有一个方法可以操作对应的元素.
 2. 在obj.fn()中的函数的this 就是obj
