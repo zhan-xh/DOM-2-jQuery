@@ -1,3 +1,12 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [利用jQuery 封装DOM](#%E5%88%A9%E7%94%A8jquery-%E5%B0%81%E8%A3%85dom)
+  - [闭包&链式操作](#%E9%97%AD%E5%8C%85%E9%93%BE%E5%BC%8F%E6%93%8D%E4%BD%9C)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # 利用jQuery 封装DOM
 ## 闭包&链式操作
 解决git push时出现 fatal: unable to access 'https://github.com/zhan-xh/DOM-2-jQuery.git/': Failed to connect to github.com port 443: Timed out
