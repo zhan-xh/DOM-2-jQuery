@@ -104,9 +104,23 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   // Override the current require with this new one
   return newRequire;
 })({"jquery.js":[function(require,module,exports) {
-window.jQuery = function (selector) {
-    var elements = document.querySelectorAll(selector);
+window.jQuery = function (selectorOrArray) {
+    var elements = void 0;
+    if (typeof selectorOrArray === 'string') {
+        elements = document.querySelectorAll(selectorOrArray);
+    } else if (selectorOrArray instanceof Array) {
+        elements = selectorOrArray;
+    }
+
     return {
+        find: function find(selectorOrArray) {
+            var array = [];
+            for (var i = 0; i < elements.length; i++) {
+                var elements2 = Array.from(elements[i].querySelectorAll(selectorOrArray));
+                array = array.concat(elements2);
+            }
+            return jQuery(array); //为了得到一个新的api对象，操作不同的elements元素，防止相互污染
+        },
         addClass: function addClass(className) {
             for (var i = 0; i < elements.length; i++) {
                 elements[i].classList.add(className);
@@ -145,7 +159,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = '' || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + '58258' + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '53584' + '/');
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
 

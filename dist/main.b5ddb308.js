@@ -104,9 +104,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   // Override the current require with this new one
   return newRequire;
 })({"main.js":[function(require,module,exports) {
-var api = jQuery(".test"); //不反悔元素们，返回api对象
-api.addClass('red').addClass('blue').addClass('green'); //因为api.addClass('red')返回的是api(一个对象),所以就还可以对api.addClass('red')进行点操作
-//这就是链式操作
+jQuery('.test').find('.child').addClass('ble');
 },{}],"C:\\Users\\24522\\AppData\\Local\\Yarn\\Data\\global\\node_modules\\parcel\\src\\builtins\\hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -136,7 +134,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = '' || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + '58258' + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '53584' + '/');
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
 
