@@ -7,7 +7,7 @@ window.jQuery = function (selectorOrArray) {
     }
 
     return {
-        oldApi: selectorOrArray.oldApi,
+
         find(selectorOrArray) {
             let array = []
             for (let i = 0; i < elements.length; i++) {
@@ -17,8 +17,11 @@ window.jQuery = function (selectorOrArray) {
             array.oldApi = this //this就是旧的api
             return jQuery(array)//为了得到一个新的api对象，操作不同的elements元素，防止相互污染
         },
-        end() {
-            return this.oldApi
+        each(fn) {
+            for (let i = 0; i < elements.length; i++) {
+                fn.call(null, elements[i], i)
+            }
+            return this
         },
         addClass(className) {
             for (let i = 0; i < elements.length; i++) {
@@ -26,7 +29,10 @@ window.jQuery = function (selectorOrArray) {
             }
             return this//保证了链式操作 this就是api  当obj.fn()时,this就是obj
         },
-
+        oldApi: selectorOrArray.oldApi,
+        end() {
+            return this.oldApi
+        },
     }
     // return api //返回一个可以操作elements的对象
 }

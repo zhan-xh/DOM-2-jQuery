@@ -104,9 +104,11 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   // Override the current require with this new one
   return newRequire;
 })({"main.js":[function(require,module,exports) {
-var api1 = jQuery('.test');
-var api2 = api1.find('.child').addClass('blue');
-var oldApi = api2.end().addClass('yellow');
+var x = jQuery('.test').find('.child');
+
+x.each(function (div) {
+  return console.log(div);
+});
 },{}],"C:\\Users\\24522\\AppData\\Local\\Yarn\\Data\\global\\node_modules\\parcel\\src\\builtins\\hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -136,7 +138,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = '' || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + '58667' + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '50918' + '/');
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
 
