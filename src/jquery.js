@@ -7,13 +7,18 @@ window.jQuery = function (selectorOrArray) {
     }
 
     return {
+        oldApi: selectorOrArray.oldApi,
         find(selectorOrArray) {
             let array = []
             for (let i = 0; i < elements.length; i++) {
                 let elements2 = Array.from(elements[i].querySelectorAll(selectorOrArray))
                 array = array.concat(elements2)
             }
+            array.oldApi = this //this就是旧的api
             return jQuery(array)//为了得到一个新的api对象，操作不同的elements元素，防止相互污染
+        },
+        end() {
+            return this.oldApi
         },
         addClass(className) {
             for (let i = 0; i < elements.length; i++) {
