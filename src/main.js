@@ -1,4 +1,4 @@
-const x = jQuery('.test')
+const x = $('.test')
 
 //x.each((div) => console.log(div))
 

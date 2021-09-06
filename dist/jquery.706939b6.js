@@ -106,65 +106,78 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 })({"jquery.js":[function(require,module,exports) {
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
-window.jQuery = function (selectorOrArray) {
+window.$ = window.jQuery = function (selectorOrArray) {
     var elements = void 0;
+
     if (typeof selectorOrArray === 'string') {
         elements = document.querySelectorAll(selectorOrArray);
     } else if (selectorOrArray instanceof Array) {
         elements = selectorOrArray;
     }
+    function createElement(string) {
+        var container = document.createElement("template");
+        container.innerHTML = string.trim();
+        return container.content.firstChild;
+    }
+    var api = Object.create(jQuery.prototype); //创建一个对象，这个对象的__proto__为jQuery.prototype
+    Object.assign(api, {
+        elements: elements,
+        oldApi: selectorOrArray.oldApi
+    });
+    return api;
 
-    return {
-        find: function find(selectorOrArray) {
-            var array = [];
-            for (var i = 0; i < elements.length; i++) {
-                var elements2 = Array.from(elements[i].querySelectorAll(selectorOrArray));
-                array = array.concat(elements2);
-            }
-            array.oldApi = this; //this就是旧的api
-            return jQuery(array); //为了得到一个新的api对象，操作不同的elements元素，防止相互污染
-        },
-        each: function each(fn) {
-            for (var i = 0; i < elements.length; i++) {
-                fn.call(null, elements[i], i);
-            }
-            return this;
-        },
-        parent: function parent() {
-            var array = [];
-            this.each(function (node) {
-                if (array.indexOf(node.parentNode) === -1) {
-                    array.push(node.parentNode);
-                }
-            });
-            return jQuery(array);
-        },
-        children: function children() {
-            var array = [];
-            this.each(function (node) {
-                array.push.apply(array, _toConsumableArray(node.children)); //剩余展开操作符https://segmentfault.com/a/1190000016571785
-                //相当于array.push(node.children[0],node.children[1],node.children[2]...)
-                //形式为(...变量名)，将一个不定数量的参数表示为一个数组。
-                //用于获取函数实参中的多余参数，组成一个数组
-            });
-            return jQuery(array);
-        },
-        print: function print() {
-            console.log(elements);
-        },
-        addClass: function addClass(className) {
-            for (var i = 0; i < elements.length; i++) {
-                elements[i].classList.add(className);
-            }
-            return this; //保证了链式操作 this就是api  当obj.fn()时,this就是obj
-        },
-
-        oldApi: selectorOrArray.oldApi,
-        end: function end() {
-            return this.oldApi;
-        }
-    };
     // return api //返回一个可以操作elements的对象
+};
+jQuery.prototype = {
+    Constructor: jQuery,
+    jquery: true,
+    //elements: elements,
+    find: function find(selectorOrArray) {
+        var array = [];
+        for (var i = 0; i < elements.length; i++) {
+            var elements2 = Array.from(this.elements[i].querySelectorAll(selectorOrArray));
+            array = array.concat(elements2);
+        }
+        array.oldApi = this; //this就是旧的api
+        return jQuery(array); //为了得到一个新的api对象，操作不同的elements元素，防止相互污染
+    },
+    each: function each(fn) {
+        for (var i = 0; i < this.elements.length; i++) {
+            fn.call(null, this.elements[i], i);
+        }
+        return this;
+    },
+    parent: function parent() {
+        var array = [];
+        this.each(function (node) {
+            if (array.indexOf(node.parentNode) === -1) {
+                array.push(node.parentNode);
+            }
+        });
+        return jQuery(array);
+    },
+    children: function children() {
+        var array = [];
+        this.each(function (node) {
+            array.push.apply(array, _toConsumableArray(node.children)); //剩余展开操作符https://segmentfault.com/a/1190000016571785
+            //相当于array.push(node.children[0],node.children[1],node.children[2]...)
+            //形式为(...变量名)，将一个不定数量的参数表示为一个数组。
+            //用于获取函数实参中的多余参数，组成一个数组
+        });
+        return jQuery(array);
+    },
+    print: function print() {
+        console.log(this.elements);
+    },
+    addClass: function addClass(className) {
+        for (var i = 0; i < this.elements.length; i++) {
+            this.elements[i].classList.add(className);
+        }
+        return this; //保证了链式操作 this就是api  当obj.fn()时,this就是obj
+    },
+    end: function end() {
+        return this.oldApi;
+    }
 };
 },{}],"C:\\Users\\24522\\AppData\\Local\\Yarn\\Data\\global\\node_modules\\parcel\\src\\builtins\\hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
@@ -195,7 +208,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = '' || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + '59535' + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '57232' + '/');
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
 
