@@ -23,6 +23,28 @@ window.jQuery = function (selectorOrArray) {
             }
             return this
         },
+        parent() {
+            const array = []
+            this.each((node) => {
+                if (array.indexOf(node.parentNode) === -1) {
+                    array.push(node.parentNode)
+                }
+            })
+            return jQuery(array)
+        },
+        children() {
+            const array = []
+            this.each((node) => {
+                array.push(...node.children)//剩余展开操作符https://segmentfault.com/a/1190000016571785
+                //相当于array.push(node.children[0],node.children[1],node.children[2]...)
+                //形式为(...变量名)，将一个不定数量的参数表示为一个数组。
+                //用于获取函数实参中的多余参数，组成一个数组
+            })
+            return jQuery(array)
+        },
+        print() {
+            console.log(elements)
+        },
         addClass(className) {
             for (let i = 0; i < elements.length; i++) {
                 elements[i].classList.add(className)

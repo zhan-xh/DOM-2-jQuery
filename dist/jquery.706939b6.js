@@ -104,6 +104,8 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   // Override the current require with this new one
   return newRequire;
 })({"jquery.js":[function(require,module,exports) {
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 window.jQuery = function (selectorOrArray) {
     var elements = void 0;
     if (typeof selectorOrArray === 'string') {
@@ -127,6 +129,28 @@ window.jQuery = function (selectorOrArray) {
                 fn.call(null, elements[i], i);
             }
             return this;
+        },
+        parent: function parent() {
+            var array = [];
+            this.each(function (node) {
+                if (array.indexOf(node.parentNode) === -1) {
+                    array.push(node.parentNode);
+                }
+            });
+            return jQuery(array);
+        },
+        children: function children() {
+            var array = [];
+            this.each(function (node) {
+                array.push.apply(array, _toConsumableArray(node.children)); //剩余展开操作符https://segmentfault.com/a/1190000016571785
+                //相当于array.push(node.children[0],node.children[1],node.children[2]...)
+                //形式为(...变量名)，将一个不定数量的参数表示为一个数组。
+                //用于获取函数实参中的多余参数，组成一个数组
+            });
+            return jQuery(array);
+        },
+        print: function print() {
+            console.log(elements);
         },
         addClass: function addClass(className) {
             for (var i = 0; i < elements.length; i++) {
@@ -171,7 +195,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = '' || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + '50918' + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '59535' + '/');
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
 
